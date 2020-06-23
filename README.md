@@ -43,3 +43,22 @@ _Test the user signup response time with and without sending emails asynchronous
     "email":"test3@programmingtechie.com",
     "password":"password3"
 }
+
+**User Authentication with JWT**
+- The user's data will be encapsulated by use of the RegisterRequest class (DTO - Data Transfer Object) when the account
+ is created
+- The service will create a new class with the user data, and the class will be passed to AuthenticationManager
+- UserDetailsService interface can fetch the user's details from multiple sources (this app will fetch this data from 
+the database).  There are two possible outcomes when this interface fetches the data from the database:
+    1. An exception is thrown if the user details are incorrect
+    2. The user details are passed to the AuthenticationManager which returns an Authentication object back to AuthService
+- SecurityConfig file will need a configuration for the AuthenticationManager, and the login() method in the AuthService
+class will need a LoginRequest object (DTO)
+- JWTProvider class will create the JWT and AsymmetricEncryption is used to sign JWT's using Java Keystore
+
+## Test User Authentication
+- POST request to url "http://localhost:8080/api/auth/login"
+- Enter JSON object similar to the first one used but no email is necessary to test if the login feature works. Postman
+should return an AuthenticationToken and username in the response body if the request is successful.
+
+**JWT Validation & Subreddit API**

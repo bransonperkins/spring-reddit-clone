@@ -1,5 +1,7 @@
 package com.win2020.springredditclone.service;
 
+import com.win2020.springredditclone.dto.AuthenticationResponse;
+import com.win2020.springredditclone.dto.LoginRequest;
 import com.win2020.springredditclone.dto.RegisterRequest;
 import com.win2020.springredditclone.exceptions.SpringRedditException;
 import com.win2020.springredditclone.model.NotificationEmail;
@@ -7,8 +9,13 @@ import com.win2020.springredditclone.model.User;
 import com.win2020.springredditclone.model.VerificationToken;
 import com.win2020.springredditclone.repository.UserRepository;
 import com.win2020.springredditclone.repository.VerificationTokenRepository;
+import com.win2020.springredditclone.security.JwtProvider;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,6 +35,8 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
     private final VerificationTokenRepository verificationTokenRepository;
     private final MailService mailService;
+    private final AuthenticationManager authenticationManager;
+    private final JwtProvider jwtProvider;
 
     @Transactional
     public void signup(RegisterRequest registerRequest) {
@@ -68,12 +77,18 @@ public class AuthService {
     }
 
     @Transactional
-    private void fetchUserAndEnable(VerificationToken verificationToken) {
+    public void fetchUserAndEnable(VerificationToken verificationToken) {
         String username = verificationToken.getUser().getUsername();
         User user = userRepository.findByUsername(username).orElseThrow(() -> new SpringRedditException("User not found name " + username));
         user.setEnabled(true);
         userRepository.save(user);
     }
 
-
+    public AuthenticationResponse login(LoginRequest loginRequest) {
+        Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(),
+                loginRequest.getPassword()));
+        SecurityContextHolder.getContext().setAuthentication(authenticate);
+        String token = jwtProvider.generateToken(authenticate);
+        return new AuthenticationResponse(token, loginRequest.getUsername());
+    }
 }

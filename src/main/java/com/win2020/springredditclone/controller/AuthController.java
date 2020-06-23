@@ -1,5 +1,7 @@
 package com.win2020.springredditclone.controller;
 
+import com.win2020.springredditclone.dto.AuthenticationResponse;
+import com.win2020.springredditclone.dto.LoginRequest;
 import com.win2020.springredditclone.dto.RegisterRequest;
 import com.win2020.springredditclone.service.AuthService;
 import lombok.AllArgsConstructor;
@@ -25,5 +27,10 @@ public class AuthController {
     public ResponseEntity<String> verifyAccount(@PathVariable String token) {
         authService.verifyAccount(token);
         return new ResponseEntity<>("Account Activated Successfully", OK);
+    }
+
+    @PostMapping("/login")
+    public AuthenticationResponse login(@RequestBody LoginRequest loginRequest) {
+        return authService.login(loginRequest);
     }
 }
