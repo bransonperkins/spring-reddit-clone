@@ -1,4 +1,4 @@
-#**Application Goals**
+# Application Goals
 1) Use different Spring technologies - Spring Data JPA, Spring Security with JWT Authentication, Starter Mail, Lombok,
 Web, Thymeleaf
 2) Implement MySQL as the database and connect it to the backend
@@ -7,13 +7,13 @@ Web, Thymeleaf
 
 _Note: Not every detail is provided here. This markdown file is intended to provide basic info about each section 
 completed over the course of the project.  I followed ProgrammingTechie's reddit clone tutorial to create this project._ 
-####**Links to the YouTube and written tutorials are below:**
+#### Links to the YouTube and written tutorials are below:
 - YouTube: https://www.youtube.com/watch?v=DKlTBBuc32c&t=2865s
 - ProgrammingTechie Website: https://programmingtechie.com/2020/05/14/building-a-reddit-clone-with-spring-boot-and-angular/
 
 ---
 
-##**Project Structure/Setup**
+## Project Structure/Setup
 - Models (Domains - all .java files) - Comment, NotificationEmail, Post, Subreddit, User, VerificationToken, Vote, 
 VoteType (ENUM)
 - Repositories (repos are always interfaces) - Each model needs a corresponding repo besides NotificationEmail
@@ -24,13 +24,13 @@ a password encoder
 
 ---
 
-##**Implement API to Register Users**
+## Implement API to Register Users
 - Controller class, request body class (DTO - Data Transfer Object), and a service class that will 
 register the user and save the user to the UserRepository
 
 ---
 
-##**User Verification & Sending Verification Email to Users**
+## User Verification & Sending Verification Email to Users
 - Service class will contain a method that will generate a verification token to verify a user's account
 - Thymeleaf dependency will need to be added to pom.xml file, so the template engine will be available to send the emails
 - MailContentBuilder class will build email messages that users will receive, and the message will be injected into the
@@ -61,7 +61,7 @@ page
 
 ---
 
-##**User Authentication with JWT**
+## User Authentication with JWT
 - The user's data will be encapsulated by use of the RegisterRequest class (DTO - Data Transfer Object) when the account
  is created
 - The service will create a new class with the user data, and the class will be passed to AuthenticationManager
@@ -80,7 +80,7 @@ should return an AuthenticationToken and username in the response body if the re
 
 ---
 
-##**JWT Validation**
+## JWT Validation
 - JwtAuthenticationFilter class is created.  The validation logic can be implemented by extending the OncePerRequestFilter
 class
 - JWT is retrieved and validated in the JwtProvider class.  Public key is used to validate the token and then the 
@@ -89,7 +89,7 @@ username is retrieved, so the user can be found and stored inside the SecurityCo
 
 ---
 
-##**Create API For Subreddits**
+## Create API For Subreddits
 - SubredditController class contains HTTP requests related to creating and viewing Subreddits
 - SubredditDto class stores & subreddit data. SubredditService class maps and saves objects to the SubredditRepository
 - Methods in SubredditService also create the functionality to use POST and GET requests in the controller
@@ -98,5 +98,5 @@ SecurityContextHolder helper class
 
 ---
 
-##**Mapstruct & Implement Post API**
+## Mapstruct & Implement Post API
 - Unfinished section
