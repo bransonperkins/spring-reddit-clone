@@ -7,16 +7,16 @@ Web, Thymeleaf
 
 _Note: Not every detail is provided here. This markdown file is intended to provide basic info about each section 
 completed over the course of the project.  I followed ProgrammingTechie's reddit clone tutorial to create this project._ 
-**Links to the YouTube and written tutorials are below:**
-YouTube: https://www.youtube.com/watch?v=DKlTBBuc32c&t=2865s
-ProgrammingTechie Website: https://programmingtechie.com/2020/05/14/building-a-reddit-clone-with-spring-boot-and-angular/
+####**Links to the YouTube and written tutorials are below:**
+- YouTube: https://www.youtube.com/watch?v=DKlTBBuc32c&t=2865s
+- ProgrammingTechie Website: https://programmingtechie.com/2020/05/14/building-a-reddit-clone-with-spring-boot-and-angular/
 
 ---
 
 ##**Project Structure/Setup**
-Models (Domains - all .java files) - Comment, NotificationEmail, Post, Subreddit, User, VerificationToken, Vote, 
+- Models (Domains - all .java files) - Comment, NotificationEmail, Post, Subreddit, User, VerificationToken, Vote, 
 VoteType (ENUM)
-Repositories (repos are always interfaces) - Each model needs a corresponding repo besides NotificationEmail
+- Repositories (repos are always interfaces) - Each model needs a corresponding repo besides NotificationEmail
 
 ### Spring Security
 - create SecurityConfig file that enables web security, configure Spring to allow requests and contains
