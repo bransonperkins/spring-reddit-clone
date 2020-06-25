@@ -4,6 +4,7 @@ import com.win2020.springredditclone.dto.AuthenticationResponse;
 import com.win2020.springredditclone.dto.LoginRequest;
 import com.win2020.springredditclone.dto.RegisterRequest;
 import com.win2020.springredditclone.service.AuthService;
+import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,14 +12,12 @@ import static org.springframework.http.HttpStatus.OK;
 
 @RestController
 @RequestMapping("/api/auth")
+@AllArgsConstructor
 public class AuthController {
 
     private final AuthService authService;
 
-    public AuthController(AuthService authService) {
-        this.authService = authService;
-    }
-
+    // Transfer user details like username, password and email as part of the RequestBody
     @PostMapping("/signup")
     public ResponseEntity<String> signup(@RequestBody RegisterRequest registerRequest) {
         authService.signup(registerRequest);

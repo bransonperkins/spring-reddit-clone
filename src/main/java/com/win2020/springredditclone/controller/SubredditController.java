@@ -2,6 +2,7 @@ package com.win2020.springredditclone.controller;
 
 import com.win2020.springredditclone.dto.SubredditDto;
 import com.win2020.springredditclone.service.SubredditService;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,13 +11,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/subreddit")
+@AllArgsConstructor
 public class SubredditController {
 
     private final SubredditService subredditService;
-
-    public SubredditController(SubredditService subredditService) {
-        this.subredditService = subredditService;
-    }
 
     @GetMapping
     public ResponseEntity<List<SubredditDto>> getAllSubreddits() {
