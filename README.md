@@ -13,8 +13,6 @@ completed over the course of the project.  I followed ProgrammingTechie's reddit
 
 ---
 
-
-
 ## Project Structure/Setup
 - Models (Domains - all .java files) - Comment, NotificationEmail, Post, Subreddit, User, VerificationToken, Vote, 
 VoteType (ENUM)

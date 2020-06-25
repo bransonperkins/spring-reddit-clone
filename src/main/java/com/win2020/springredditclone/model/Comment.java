@@ -33,4 +33,5 @@ public class Comment {
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "userId", referencedColumnName = "userId")
     private User user;
+
 }

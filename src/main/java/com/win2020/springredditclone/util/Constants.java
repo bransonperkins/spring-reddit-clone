@@ -1,8 +1,9 @@
 package com.win2020.springredditclone.util;
 
-import lombok.experimental.UtilityClass;
+public final class Constants {
+    public static final String ACTIVATION_EMAIL = "http://localhost:8080/api/auth/accountVerification";
 
-@UtilityClass
-public class Constants {
-    public final String ACTIVATION_EMAIL = "http://localhost:8080/api/auth/accountVerification";
+    private Constants() {
+        throw new UnsupportedOperationException("This is a utility class and cannot be instantiated");
+    }
 }
