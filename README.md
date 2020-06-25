@@ -5,8 +5,10 @@ Web, Thymeleaf
 3) Use Angular 9 as the frontend framework and Bootstrap as the CSS framework
 4) Grow a stronger understanding of developing full-stack applications
 
-_Note: Not every detail is provided here. This markdown file is intended to provide basic info about each section 
-completed over the course of the project.  I followed ProgrammingTechie's reddit clone tutorial to create this project._ 
+_Note: Not every detail is provided here.  I do my best to make technical notes in the code, so the purpose of this 
+markdown is to provide basic info about each section completed over the course of the project.  ProgrammingTechie's 
+reddit clone tutorial made this all possible.  IMO, it is the best full stack web application tutorial for developers 
+who want to learn the Spring framework_ 
 #### Links to the YouTube and written tutorials are below:
 - YouTube: https://www.youtube.com/watch?v=DKlTBBuc32c&t=2865s
 - ProgrammingTechie Website: https://programmingtechie.com/2020/05/14/building-a-reddit-clone-with-spring-boot-and-angular/
@@ -99,4 +101,18 @@ SecurityContextHolder helper class
 ---
 
 ## Mapstruct & Implement Post API
-- Unfinished section
+- The Subreddit API would originally only work with manually built mapping methods. Implementing Mapstruct into the project 
+makes mapping models and DTO's easy
+- Mapstruct installation instructions: https://mapstruct.org/documentation/installation/
+- SubredditMapper interface uses Mapstruct annotations to generate code that replaces manual mapping methods created in SubredditService 
+**Annotations include:** 
+1. @Mapper(componentModel='spring') - specifies that the interface is a Mapstruct Mapper and Spring should recognize it
+as a component, so it is available for injection
+2. @Mapping - the name of the mapped attribute or constant is specified via target.  Expression is specified to define 
+the property source
+3. @InheritInverseConfiguration - creates reverse mappings
+
+---
+
+## Implement Post API
+- Work in progress

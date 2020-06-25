@@ -2,6 +2,7 @@ package com.win2020.springredditclone.service;
 
 import com.win2020.springredditclone.dto.SubredditDto;
 import com.win2020.springredditclone.exceptions.SubredditNotFoundException;
+import com.win2020.springredditclone.mapper.SubredditMapper;
 import com.win2020.springredditclone.model.Subreddit;
 import com.win2020.springredditclone.repository.SubredditRepository;
 import lombok.AllArgsConstructor;
@@ -10,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-import static java.time.Instant.now;
 import static java.util.stream.Collectors.toList;
 
 @Service
@@ -18,7 +18,7 @@ import static java.util.stream.Collectors.toList;
 public class SubredditService {
 
     private final SubredditRepository subredditRepository;
-    private final AuthService authService;
+    private final SubredditMapper subredditMapper;
 
     // findAll() gives all of the Subreddit objects that were stored in the subredditRepository
     // stream() returns Subreddit objects sequentially
@@ -28,7 +28,7 @@ public class SubredditService {
     public List<SubredditDto> getAll() {
         return subredditRepository.findAll()
                 .stream()
-                .map(this::mapToDto)
+                .map(subredditMapper::mapSubredditToDto)
                 .collect(toList());
     }
 
@@ -36,31 +36,16 @@ public class SubredditService {
     public SubredditDto getSubreddit(Long id) {
         Subreddit subreddit = subredditRepository.findById(id)
                 .orElseThrow(() -> new SubredditNotFoundException("Subreddit not found with id -" + id));
-        return mapToDto(subreddit);
+        return subredditMapper.mapSubredditToDto(subreddit);
     }
 
     // SubredditRepository only
-    // save method that will allow a SubredditDto object to be saved to the SubredditRepository
+    // Method that will allow a SubredditDto object to be saved to the SubredditRepository
     @Transactional
     public SubredditDto save(SubredditDto subredditDto) {
-        Subreddit subreddit = subredditRepository.save(mapToSubreddit(subredditDto));
-        subredditDto.setId(subreddit.getId());
+        Subreddit save = subredditRepository.save(subredditMapper.mapDtoToSubreddit(subredditDto));
+        subredditDto.setId(save.getId());
         return subredditDto;
     }
 
-    // method that will create a SubredditDto object when Subreddit object is passed as an argument
-    private SubredditDto mapToDto(Subreddit subreddit) {
-        return SubredditDto.builder().name(subreddit.getName())
-                .id(subreddit.getId())
-                .postCount(subreddit.getPosts().size())
-                .build();
-    }
-
-
-    private Subreddit mapToSubreddit(SubredditDto subredditDto) {
-        return Subreddit.builder().name("/r/" + subredditDto.getName())
-                .description(subredditDto.getDescription())
-                .user(authService.getCurrentUser())
-                .createdDate(now()).build();
-    }
 }
